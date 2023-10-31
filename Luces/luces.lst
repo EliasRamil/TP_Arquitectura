@@ -1,0 +1,391 @@
+MPASM  5.31                         LUCES.ASM   10-30-2023  18:16:16         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ; Configuración del PIC16F628A
+                      00002         list    p=16F628A        ; Lista de instrucciones del PIC16F628A
+                      00003         #include <P16F628A.INC>  ; Archivo de inclusión específico del PIC16F628A
+                      00001         LIST
+                      00002 ; P16F628A.INC  Standard Header File, Version 1.10    Microchip Technology, Inc.
+                      00265         LIST
+                      00004 
+2007   3F10           00005         __CONFIG 3F10
+                      00006 
+                      00007 ; Definición de constantes, bloque de control
+                      00008     CBLOCK 0x20
+  00000020            00009     COUNT1
+  00000021            00010     COUNT2
+                      00011     ENDC
+                      00012 
+                      00013     ORG 0x00
+0000   2???           00014     GOTO Inicio
+                      00015 
+                      00016 ; Rutina de interrupción
+                      00017     ORG 0x04
+0004   0009           00018     RETFIE
+                      00019 
+                      00020 ; Rutina para esperar 1 microsegundo
+0005                  00021 Esperar1ms:
+0005   30FA           00022         movlw d'250'
+0006   00A0           00023         movwf COUNT1
+0007                  00024 loop
+0007   0000           00025         nop
+0008   0BA0           00026         decfsz COUNT1, 1
+0009   2???           00027         goto loop
+                      00028         
+000A   0008           00029         return
+                      00030 
+                      00031 ; Rutina para esperar 250 microsegundos
+000B                  00032 Esperar250ms:
+000B   30FA           00033         movlw d'250'
+000C   00A1           00034         movwf COUNT2
+000D                  00035 loop2
+000D   2???           00036         call Esperar1ms
+000E   0BA1           00037         decfsz COUNT2, 1
+000F   2???           00038         goto loop2
+                      00039         
+0010   0008           00040         return
+                      00041 
+                      00042 ; Programa principal
+0011                  00043 Inicio:
+                      00044     ; Configurar puertos
+0011   1683           00045         BSF STATUS, RP0                 ; Seleccionar el banco de registros 1
+0012   3000           00046     MOVLW 0x00
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0013   0086           00047     MOVWF TRISB
+0014   1283           00048         BCF STATUS, RP0                 ; Deseleccionar el banco de registros 1 (volver al banco 0)
+                      00049 
+MPASM  5.31                         LUCES.ASM   10-30-2023  18:16:16         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0015                  00050 LOOP
+                      00051 
+                      00052     ; Punto 1: Encender todos los leds (RB0, RB1, RB2, RB3)
+0015   300F           00053     MOVLW 0x0F
+0016   0086           00054     MOVWF PORTB
+                      00055 
+                      00056     ; Esperar un segundo
+0017   2???           00057     CALL Esperar250ms
+0018   2???           00058     CALL Esperar250ms
+0019   2???           00059     CALL Esperar250ms
+001A   2???           00060     CALL Esperar250ms
+                      00061 
+                      00062     ; Punto 2: Encender y apagar todos los leds cada un segundo
+001B   3000           00063     MOVLW 0x00
+001C   0086           00064     MOVWF PORTB
+001D   2???           00065     CALL Esperar250ms
+001E   2???           00066     CALL Esperar250ms
+001F   2???           00067     CALL Esperar250ms
+0020   2???           00068     CALL Esperar250ms
+0021   300F           00069     MOVLW 0x0F
+0022   0086           00070     MOVWF PORTB
+0023   2???           00071     CALL Esperar250ms
+0024   2???           00072     CALL Esperar250ms
+0025   2???           00073     CALL Esperar250ms
+0026   2???           00074     CALL Esperar250ms
+0027   3000           00075     MOVLW 0x00
+0028   0086           00076     MOVWF PORTB
+0029   2???           00077     CALL Esperar250ms
+002A   2???           00078     CALL Esperar250ms
+002B   2???           00079     CALL Esperar250ms
+002C   2???           00080     CALL Esperar250ms
+                      00081 
+                      00082     ; Punto 3: Encender los leds durante un segundo y apagarlos leds durante medio segundo, repetir 4 ve
+                            ces
+002D   300F           00083     MOVLW 0x0F
+002E   0086           00084     MOVWF PORTB
+002F   2???           00085     CALL Esperar250ms
+0030   2???           00086     CALL Esperar250ms
+0031   2???           00087     CALL Esperar250ms
+0032   2???           00088     CALL Esperar250ms
+0033   3000           00089     MOVLW 0x00
+0034   0086           00090     MOVWF PORTB
+0035   2???           00091     CALL Esperar250ms
+0036   2???           00092     CALL Esperar250ms
+0037   300F           00093     MOVLW 0x0F
+0038   0086           00094     MOVWF PORTB
+0039   2???           00095     CALL Esperar250ms
+003A   2???           00096     CALL Esperar250ms
+003B   2???           00097     CALL Esperar250ms
+003C   2???           00098     CALL Esperar250ms
+003D   3000           00099     MOVLW 0x00
+003E   0086           00100     MOVWF PORTB
+003F   2???           00101     CALL Esperar250ms
+MPASM  5.31                         LUCES.ASM   10-30-2023  18:16:16         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0040   2???           00102     CALL Esperar250ms
+0041   300F           00103     MOVLW 0x0F
+0042   0086           00104     MOVWF PORTB
+0043   2???           00105     CALL Esperar250ms
+0044   2???           00106     CALL Esperar250ms
+0045   2???           00107     CALL Esperar250ms
+0046   2???           00108     CALL Esperar250ms
+0047   3000           00109     MOVLW 0x00
+0048   0086           00110     MOVWF PORTB
+0049   2???           00111     CALL Esperar250ms
+004A   2???           00112     CALL Esperar250ms
+004B   300F           00113     MOVLW 0x0F
+004C   0086           00114     MOVWF PORTB
+004D   2???           00115     CALL Esperar250ms
+004E   2???           00116     CALL Esperar250ms
+004F   2???           00117     CALL Esperar250ms
+0050   2???           00118     CALL Esperar250ms
+0051   3000           00119     MOVLW 0x00
+0052   0086           00120     MOVWF PORTB
+0053   2???           00121     CALL Esperar250ms
+0054   2???           00122     CALL Esperar250ms
+                      00123 
+                      00124         ; Punto 4: Encender los LEDs de RB0 a RB3 con una demora de 500ms entre ellos
+0055   3001           00125         MOVLW 0x01
+0056   0086           00126         MOVWF PORTB
+0057   2???           00127         CALL Esperar250ms
+0058   2???           00128     CALL Esperar250ms
+0059   3003           00129         MOVLW 0x03
+005A   0086           00130         MOVWF PORTB
+005B   2???           00131         CALL Esperar250ms
+005C   2???           00132     CALL Esperar250ms
+005D   3007           00133         MOVLW 0x07
+005E   0086           00134         MOVWF PORTB
+005F   2???           00135         CALL Esperar250ms
+0060   2???           00136     CALL Esperar250ms
+0061   300F           00137         MOVLW 0x0F
+0062   0086           00138         MOVWF PORTB
+0063   2???           00139         CALL Esperar250ms
+0064   2???           00140     CALL Esperar250ms
+                      00141 
+                      00142         ; Punto 5: Apagar los LEDs de RB3 a RB0 con una demora de 500ms entre ellos
+0065   3007           00143         MOVLW 0x07
+0066   0086           00144         MOVWF PORTB
+0067   2???           00145         CALL Esperar250ms
+0068   2???           00146     CALL Esperar250ms
+0069   3003           00147         MOVLW 0x03
+006A   0086           00148         MOVWF PORTB
+006B   2???           00149         CALL Esperar250ms
+006C   2???           00150     CALL Esperar250ms
+006D   3001           00151         MOVLW 0x01
+006E   0086           00152         MOVWF PORTB
+006F   2???           00153         CALL Esperar250ms
+0070   2???           00154     CALL Esperar250ms
+MPASM  5.31                         LUCES.ASM   10-30-2023  18:16:16         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0071   3000           00155         MOVLW 0x00
+0072   0086           00156         MOVWF PORTB
+0073   2???           00157         CALL Esperar250ms
+0074   2???           00158     CALL Esperar250ms
+                      00159 
+0075   2???           00160     GOTO LOOP
+3F10                  00161         END
+MPASM  5.31                         LUCES.ASM   10-30-2023  18:16:16         PAGE  5
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ADEN                              00000003
+BRGH                              00000002
+C                                 00000000
+C1INV                             00000004
+C1OUT                             00000006
+C2INV                             00000005
+C2OUT                             00000007
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCPR1H                            00000016
+CCPR1L                            00000015
+CIS                               00000003
+CM0                               00000000
+CM1                               00000001
+CM2                               00000002
+CMCON                             0000001F
+CMIE                              00000006
+CMIF                              00000006
+COUNT1                            00000020
+COUNT2                            00000021
+CREN                              00000004
+CSRC                              00000007
+DC                                00000001
+EEADR                             0000009B
+EECON1                            0000009C
+EECON2                            0000009D
+EEDATA                            0000009A
+EEIE                              00000007
+EEIF                              00000007
+Esperar1ms                        00000005
+Esperar250ms                      0000000B
+F                                 00000001
+FERR                              00000002
+FSR                               00000004
+GIE                               00000007
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+Inicio                            00000011
+LOOP                              00000015
+NOT_BO                            00000000
+NOT_BOD                           00000000
+NOT_BOR                           00000000
+MPASM  5.31                         LUCES.ASM   10-30-2023  18:16:16         PAGE  6
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+OERR                              00000001
+OPTION_REG                        00000081
+OSCF                              00000003
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PEIE                              00000006
+PIE1                              0000008C
+PIR1                              0000000C
+PORTA                             00000005
+PORTB                             00000006
+PR2                               00000092
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+RBIE                              00000003
+RBIF                              00000000
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+RP0                               00000005
+RP1                               00000006
+RX9                               00000006
+RX9D                              00000000
+SPBRG                             00000099
+SPEN                              00000007
+SREN                              00000005
+STATUS                            00000003
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1OSCEN                           00000003
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+TMR0                              00000001
+TMR1CS                            00000001
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+MPASM  5.31                         LUCES.ASM   10-30-2023  18:16:16         PAGE  7
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISB                             00000086
+TRMT                              00000001
+TX9                               00000006
+TX9D                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+VR0                               00000000
+VR1                               00000001
+VR2                               00000002
+VR3                               00000003
+VRCON                             0000009F
+VREN                              00000007
+VROE                              00000006
+VRR                               00000005
+W                                 00000000
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_BODEN_OFF                        00003FBF
+_BODEN_ON                         00003FFF
+_BOREN_OFF                        00003FBF
+_BOREN_ON                         00003FFF
+_CP_OFF                           00003FFF
+_CP_ON                            00001FFF
+_DATA_CP_OFF                      00003FFF
+_DATA_CP_ON                       00003EFF
+_ER_OSC_CLKOUT                    00003FFF
+_ER_OSC_NOCLKOUT                  00003FFE
+_EXTCLK_OSC                       00003FEF
+_HS_OSC                           00003FEE
+_INTOSC_OSC_CLKOUT                00003FFD
+_INTOSC_OSC_NOCLKOUT              00003FFC
+_INTRC_OSC_CLKOUT                 00003FFD
+_INTRC_OSC_NOCLKOUT               00003FFC
+_LP_OSC                           00003FEC
+_LVP_OFF                          00003F7F
+_LVP_ON                           00003FFF
+_MCLRE_OFF                        00003FDF
+MPASM  5.31                         LUCES.ASM   10-30-2023  18:16:16         PAGE  8
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_MCLRE_ON                         00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC_CLKOUT                    00003FFF
+_RC_OSC_NOCLKOUT                  00003FFE
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_XT_OSC                           00003FED
+__16F628A                         00000001
+__DEBUG                           1
+loop                              00000007
+loop2                             0000000D
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     1 reported,     0 suppressed
+
+

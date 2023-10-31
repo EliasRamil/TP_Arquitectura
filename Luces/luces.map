@@ -1,0 +1,46 @@
+MPLINK 4.31, Linker
+Linker Map File - Created Mon Oct 30 18:16:17 2023
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000002
+                   .cinit    romdata   0x000001    program   0x000004
+                   .org_1       code   0x000004    program   0x0000e4
+     .config_2007_LUCES.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000002      
+                            0x000004    0x000075      
+                            0x002007    0x002007      
+            118 out of 2183 program addresses used, program memory utilization is 5%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+               Esperar1ms   0x000005    program     static C:\Users\MyPC\Desktop\TP Arquitectura 2023\Luces\luces.asm
+             Esperar250ms   0x00000b    program     static C:\Users\MyPC\Desktop\TP Arquitectura 2023\Luces\luces.asm
+                   Inicio   0x000011    program     static C:\Users\MyPC\Desktop\TP Arquitectura 2023\Luces\luces.asm
+                     LOOP   0x000015    program     static C:\Users\MyPC\Desktop\TP Arquitectura 2023\Luces\luces.asm
+                     loop   0x000007    program     static C:\Users\MyPC\Desktop\TP Arquitectura 2023\Luces\luces.asm
+                    loop2   0x00000d    program     static C:\Users\MyPC\Desktop\TP Arquitectura 2023\Luces\luces.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+               Esperar1ms   0x000005    program     static C:\Users\MyPC\Desktop\TP Arquitectura 2023\Luces\luces.asm
+                     loop   0x000007    program     static C:\Users\MyPC\Desktop\TP Arquitectura 2023\Luces\luces.asm
+             Esperar250ms   0x00000b    program     static C:\Users\MyPC\Desktop\TP Arquitectura 2023\Luces\luces.asm
+                    loop2   0x00000d    program     static C:\Users\MyPC\Desktop\TP Arquitectura 2023\Luces\luces.asm
+                   Inicio   0x000011    program     static C:\Users\MyPC\Desktop\TP Arquitectura 2023\Luces\luces.asm
+                     LOOP   0x000015    program     static C:\Users\MyPC\Desktop\TP Arquitectura 2023\Luces\luces.asm
+
+
