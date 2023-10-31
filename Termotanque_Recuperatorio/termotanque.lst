@@ -1,4 +1,4 @@
-MPASM  5.31                   TERMOTANQUE.ASM   10-31-2023  18:19:45         PAGE  1
+MPASM  5.31                   TERMOTANQUE.ASM   10-31-2023  20:50:02         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -57,7 +57,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 0009   2???           00048         goto loop
                       00049         
 000A   0008           00050         return
-MPASM  5.31                   TERMOTANQUE.ASM   10-31-2023  18:19:45         PAGE  2
+MPASM  5.31                   TERMOTANQUE.ASM   10-31-2023  20:50:02         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -104,91 +104,99 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
 001E                  00088 Verificar_Temperatura:
 001E   1486           00089         bsf PORTB, VT   ; Led que indica que se esta verificando la temp
                       00090 
-001F                  00091 loop_temp
-001F   302D           00092         movlw TM
-0020   00A2           00093         movwf Aux
-0021   0820           00094         movfw Ta
-0022   0222           00095         subwf Aux, w
-0023   1903           00096         btfsc STATUS, Z
-0024   2???           00097         goto agua_caliente
-0025   1186           00098         bcf PORTB, RA
-0026   1506           00099         bsf PORTB, RT
-0027   2???           00100         call Esperar250ms
-0028   1106           00101         bcf PORTB, RT
-0029   3005           00102         movlw Calculo_Temp
-MPASM  5.31                   TERMOTANQUE.ASM   10-31-2023  18:19:45         PAGE  3
+001F   0820           00091         movfw Ta
+0020   00A2           00092         movwf Aux
+0021   3014           00093         movlw Tm
+0022   0222           00094         subwf Aux, w
+0023   1D03           00095         btfss STATUS, Z
+0024   2???           00096         goto agua_caliente
+                      00097 
+0025                  00098 loop_temp
+0025   302D           00099         movlw TM
+0026   00A2           00100         movwf Aux
+0027   0820           00101         movfw Ta
+0028   0222           00102         subwf Aux, w
+MPASM  5.31                   TERMOTANQUE.ASM   10-31-2023  20:50:02         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-002A   0720           00103         addwf Ta, w
-002B   00A0           00104         movwf Ta
-002C   2???           00105         goto loop_temp
-                      00106         
-002D                  00107 agua_caliente
-002D   1086           00108         bcf PORTB, VT
-002E   1586           00109         bsf PORTB, RA
-                      00110 
-002F   0008           00111         return  ; Fin Verificar_Temperatura
-                      00112 
-                      00113 
-                      00114 ; Subrutina para verificar si la canilla debe abrirse o cerrarse
-0030                  00115 Verificar_Canilla:
-                      00116         
-0030                  00117 loop_canilla
-0030   0821           00118         movfw Ca
-0031   00A2           00119         movwf Aux
-0032   3032           00120         movlw MA
-0033   0222           00121         subwf Aux, w
-0034   1903           00122         btfsc STATUS, Z
-0035   2???           00123         goto cerrar_canilla
-0036   1606           00124         bsf PORTB, CA
-0037   300A           00125         movlw Calculo_Agua
-0038   0221           00126         subwf Ca, w
-0039   00A1           00127         movwf Ca
-003A   2???           00128         goto loop_canilla
-                      00129         
-003B                  00130 cerrar_canilla
-003B   1206           00131         bcf PORTB, CA   
-003C   3014           00132         movlw Tm
-003D   00A0           00133         movwf Ta
-                      00134         
-003E   0008           00135         return  ; Fin Verificar_Canilla
+0029   1903           00103         btfsc STATUS, Z
+002A   2???           00104         goto agua_caliente
+002B   1186           00105         bcf PORTB, RA
+002C   1506           00106         bsf PORTB, RT
+                      00107         ;call Esperar250ms
+002D   1106           00108         bcf PORTB, RT
+002E   3005           00109         movlw Calculo_Temp
+002F   0720           00110         addwf Ta, w
+0030   00A0           00111         movwf Ta
+0031   2???           00112         goto loop_temp
+                      00113         
+0032                  00114 agua_caliente
+0032   1086           00115         bcf PORTB, VT
+0033   1586           00116         bsf PORTB, RA
+                      00117 
+0034   0008           00118         return  ; Fin Verificar_Temperatura
+                      00119 
+                      00120 
+                      00121 ; Subrutina para verificar si la canilla debe abrirse o cerrarse
+0035                  00122 Verificar_Canilla:
+                      00123         
+0035                  00124 loop_canilla
+0035   0821           00125         movfw Ca
+0036   00A2           00126         movwf Aux
+0037   3032           00127         movlw MA
+0038   0222           00128         subwf Aux, w
+0039   1903           00129         btfsc STATUS, Z
+003A   2???           00130         goto cerrar_canilla
+003B   1606           00131         bsf PORTB, CA
+003C   300A           00132         movlw Calculo_Agua
+003D   0221           00133         subwf Ca, w
+003E   00A1           00134         movwf Ca
+003F   2???           00135         goto loop_canilla
                       00136         
-003F                  00137 Inicio:
-                      00138         ; Configuración de puertos
-003F   1683           00139     bsf STATUS, RP0             ; Seleccionar el banco 1 de registros   
-Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
-0040   0186           00140     clrf TRISB                  ; Config TRISB
-0041   1283           00141     bcf STATUS, RP0             ; Deseleccionar el banco de registros 1 (volver al banco 0)
-                      00142 
-0042   1586           00143         bsf PORTB, RA           ; Resistencia apagada y termotanque prendido
+0040                  00137 cerrar_canilla
+0040   1206           00138         bcf PORTB, CA   
+0041   3005           00139         movlw Calculo_Temp
+0042   0220           00140         subwf Ta, w
+0043   00A0           00141         movwf Ta
+                      00142         
+0044   0008           00143         return  ; Fin Verificar_Canilla
                       00144         
-                      00145         ; Inicializar valores:
-0043   3019           00146         movlw d'25'             ; Temperatura actual del agua
-0044   00A0           00147         movwf Ta
-0045   305A           00148         movlw d'90'             ; Cantidad actual de agua
-0046   00A1           00149         movwf Ca
-                      00150         
-0047                  00151 Bucle_Principal
-0047   2???           00152         call Verificar_Agua
-0048   2???           00153         call Verificar_Temperatura
-0049   2???           00154         call Esperar250ms               ; Espera de 1 segundo
-MPASM  5.31                   TERMOTANQUE.ASM   10-31-2023  18:19:45         PAGE  4
+0045                  00145 Inicio:
+                      00146         ; Configuración de puertos
+0045   1683           00147     bsf STATUS, RP0             ; Seleccionar el banco 1 de registros   
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0046   0186           00148     clrf TRISB                  ; Config TRISB
+0047   1283           00149     bcf STATUS, RP0             ; Deseleccionar el banco de registros 1 (volver al banco 0)
+                      00150 
+0048   1586           00151         bsf PORTB, RA           ; Resistencia apagada y termotanque prendido
+                      00152         
+                      00153         ; Inicializar valores:
+0049   3019           00154         movlw d'25'             ; Temperatura actual del agua
+MPASM  5.31                   TERMOTANQUE.ASM   10-31-2023  20:50:02         PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-004A   2???           00155         call Esperar250ms
-004B   2???           00156         call Esperar250ms
-004C   2???           00157         call Esperar250ms
-004D   2???           00158         call Verificar_Canilla
-004E   2???           00159         goto Bucle_Principal
-                      00160         
-3F10                  00161         end             ; Fin del programa
-MPASM  5.31                   TERMOTANQUE.ASM   10-31-2023  18:19:45         PAGE  5
+004A   00A0           00155         movwf Ta
+004B   305A           00156         movlw d'90'             ; Cantidad actual de agua
+004C   00A1           00157         movwf Ca
+                      00158         
+004D                  00159 Bucle_Principal
+004D   2???           00160         call Verificar_Agua
+004E   2???           00161         call Verificar_Temperatura
+                      00162         ;call Esperar250ms              ; Espera de 1 segundo
+                      00163         ;call Esperar250ms
+                      00164         ;call Esperar250ms
+                      00165         ;call Esperar250ms
+004F   2???           00166         call Verificar_Canilla
+0050   2???           00167         goto Bucle_Principal
+                      00168         
+3F10                  00169         end             ; Fin del programa
+MPASM  5.31                   TERMOTANQUE.ASM   10-31-2023  20:50:02         PAGE  5
 
 
 SYMBOL TABLE
@@ -198,7 +206,7 @@ ADEN                              00000003
 Aux                               00000022
 BA                                0
 BRGH                              00000002
-Bucle_Principal                   00000047
+Bucle_Principal                   0000004D
 C                                 00000000
 C1INV                             00000004
 C1OUT                             00000006
@@ -247,7 +255,7 @@ GIE                               00000007
 INDF                              00000000
 INTCON                            0000000B
 INTE                              00000004
-MPASM  5.31                   TERMOTANQUE.ASM   10-31-2023  18:19:45         PAGE  6
+MPASM  5.31                   TERMOTANQUE.ASM   10-31-2023  20:50:02         PAGE  6
 
 
 SYMBOL TABLE
@@ -256,7 +264,7 @@ SYMBOL TABLE
 INTEDG                            00000006
 INTF                              00000001
 IRP                               00000007
-Inicio                            0000003F
+Inicio                            00000045
 MA                                d'50'
 NOT_BO                            00000000
 NOT_BOD                           00000000
@@ -306,7 +314,7 @@ T0IF                              00000002
 T0SE                              00000004
 T1CKPS0                           00000004
 T1CKPS1                           00000005
-MPASM  5.31                   TERMOTANQUE.ASM   10-31-2023  18:19:45         PAGE  7
+MPASM  5.31                   TERMOTANQUE.ASM   10-31-2023  20:50:02         PAGE  7
 
 
 SYMBOL TABLE
@@ -355,7 +363,7 @@ VROE                              00000006
 VRR                               00000005
 VT                                1
 Verificar_Agua                    00000011
-Verificar_Canilla                 00000030
+Verificar_Canilla                 00000035
 Verificar_Temperatura             0000001E
 W                                 00000000
 WR                                00000001
@@ -365,7 +373,7 @@ Z                                 00000002
 _BODEN_OFF                        00003FBF
 _BODEN_ON                         00003FFF
 _BOREN_OFF                        00003FBF
-MPASM  5.31                   TERMOTANQUE.ASM   10-31-2023  18:19:45         PAGE  8
+MPASM  5.31                   TERMOTANQUE.ASM   10-31-2023  20:50:02         PAGE  8
 
 
 SYMBOL TABLE
@@ -398,13 +406,13 @@ _WDT_ON                           00003FFF
 _XT_OSC                           00003FED
 __16F628A                         00000001
 __DEBUG                           1
-agua_caliente                     0000002D
-cerrar_canilla                    0000003B
+agua_caliente                     00000032
+cerrar_canilla                    00000040
 loop                              00000007
 loop2                             0000000D
 loop_agua                         00000011
-loop_canilla                      00000030
-loop_temp                         0000001F
+loop_canilla                      00000035
+loop_temp                         00000025
 tanque_full                       0000001C
 
 Errors   :     0

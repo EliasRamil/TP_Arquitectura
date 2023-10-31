@@ -88,6 +88,13 @@ tanque_full
 Verificar_Temperatura:
 	bsf PORTB, VT	; Led que indica que se esta verificando la temp
 
+	movfw Ta
+	movwf Aux
+	movlw Tm
+	subwf Aux, w
+	btfss STATUS, Z
+	goto agua_caliente
+
 loop_temp
 	movlw TM
 	movwf Aux
@@ -97,7 +104,7 @@ loop_temp
 	goto agua_caliente
 	bcf PORTB, RA
 	bsf PORTB, RT
-	call Esperar250ms
+	;call Esperar250ms
 	bcf PORTB, RT
 	movlw Calculo_Temp
 	addwf Ta, w
@@ -129,7 +136,8 @@ loop_canilla
 	
 cerrar_canilla
 	bcf PORTB, CA	
-	movlw Tm
+	movlw Calculo_Temp
+	subwf Ta, w
 	movwf Ta
 	
 	return	; Fin Verificar_Canilla
@@ -151,10 +159,10 @@ Inicio:
 Bucle_Principal
 	call Verificar_Agua
 	call Verificar_Temperatura
-	call Esperar250ms		; Espera de 1 segundo
-	call Esperar250ms
-	call Esperar250ms
-	call Esperar250ms
+	;call Esperar250ms		; Espera de 1 segundo
+	;call Esperar250ms
+	;call Esperar250ms
+	;call Esperar250ms
 	call Verificar_Canilla
 	goto Bucle_Principal
 	
