@@ -182,6 +182,12 @@ Bucle_Principal
 	call Esperar250ms
 	
 	call Verificar_Canilla
+	
+	call Esperar250ms		; Espera de 1 segundo
+	call Esperar250ms
+	call Esperar250ms
+	call Esperar250ms
+	
 	goto Bucle_Principal
 	
 	end		; Fin del programa
