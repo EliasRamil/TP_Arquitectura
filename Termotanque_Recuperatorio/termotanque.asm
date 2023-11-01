@@ -66,16 +66,20 @@ Verificar_Agua:
     ; Si es menor, se enciende la bomba (BA) y se espera a que la cantidad de agua alcance el nivel necesario.
 
 loop_agua	
-	movlw CT
+	movlw CT			; Comparo cantidad total de agua con la cantidad actual
 	movwf Aux
 	movfw Ca
 	subwf Aux, w
-	btfsc STATUS, Z
+	
+	btfsc STATUS, Z		; Si CT = Ca apago la bomba de agua
 	goto tanque_full
-	bsf PORTB, BA
-	movlw Calculo_Agua
+	
+	bsf PORTB, BA		; Prender bomba de agua
+	
+	movlw Calculo_Agua	; Aumento la cantidad de agua
 	addwf Ca, w
 	movwf Ca
+	
 	goto loop_agua	
 
 tanque_full	
@@ -86,34 +90,40 @@ tanque_full
 
 ;Subrutina para verificar la temperatura del agua
 Verificar_Temperatura:
-	bsf PORTB, VT	; Led que indica que se esta verificando la temp
+	bsf PORTB, VT		; Led que indica que se esta verificando la temp
 
-	movfw Ta
+	movfw Ta			; Comparo temp actual con la temp min del agua
 	movwf Aux
 	movlw Tm
 	subwf Aux, w
-	btfss STATUS, Z
+	
+	btfss STATUS, Z		; Ta es mayor a Tm no hago más nada
 	goto agua_caliente
 
 loop_temp
-	movlw TM
+	movlw TM			; Comparo la temp actual con la temp max del agua
 	movwf Aux
 	movfw Ta
 	subwf Aux, w
-	btfsc STATUS, Z
+	
+	btfsc STATUS, Z		; Si Ta = TM apago la resistencia
 	goto agua_caliente
-	bcf PORTB, RA
-	bsf PORTB, RT
+	
+	bcf PORTB, RA		; Prender resistencia
+	
+	bsf PORTB, RT		; Parpadeo de resistencia trabajando
 	call Esperar250ms
 	bcf PORTB, RT
-	movlw Calculo_Temp
+	
+	movlw Calculo_Temp	; Calculo de la nueva Ta
 	addwf Ta, w
 	movwf Ta
+	
 	goto loop_temp
 	
 agua_caliente
-	bcf PORTB, VT
-	bsf PORTB, RA
+	bcf PORTB, VT		; Indicar que finalizo la verificacion de temp
+	bsf PORTB, RA		; Resistencia apagada
 
 	return	; Fin Verificar_Temperatura
 
@@ -122,23 +132,24 @@ agua_caliente
 Verificar_Canilla:
 	
 loop_canilla
-	movfw Ca
+	movfw Ca			; Comparar Cant actual con Min de agua
 	movwf Aux
 	movlw MA
 	subwf Aux, w
-	btfsc STATUS, Z
+	
+	btfsc STATUS, Z		; Si Ca - MA = 0 cierro la canilla
 	goto cerrar_canilla
-	bsf PORTB, CA
-	movlw Calculo_Agua
+	
+	bsf PORTB, CA		; Abrir canilla
+	
+	movlw Calculo_Agua	; A la cantidad actual de agua le resto
 	subwf Ca, w
 	movwf Ca
+	
 	goto loop_canilla
 	
 cerrar_canilla
-	bcf PORTB, CA	
-	movlw Calculo_Temp
-	subwf Ta, w
-	movwf Ta
+	bcf PORTB, CA		; Cerrar canilla
 	
 	return	; Fin Verificar_Canilla
 	
@@ -158,11 +169,18 @@ Inicio:
 	
 Bucle_Principal
 	call Verificar_Agua
+	
+	movlw Calculo_Temp		; Bajar temperatura
+	subwf Ta, w
+	movwf Ta
+	
 	call Verificar_Temperatura
+	
 	call Esperar250ms		; Espera de 1 segundo
 	call Esperar250ms
 	call Esperar250ms
 	call Esperar250ms
+	
 	call Verificar_Canilla
 	goto Bucle_Principal
 	
