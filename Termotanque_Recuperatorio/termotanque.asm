@@ -104,7 +104,7 @@ loop_temp
 	goto agua_caliente
 	bcf PORTB, RA
 	bsf PORTB, RT
-	;call Esperar250ms
+	call Esperar250ms
 	bcf PORTB, RT
 	movlw Calculo_Temp
 	addwf Ta, w
@@ -159,10 +159,10 @@ Inicio:
 Bucle_Principal
 	call Verificar_Agua
 	call Verificar_Temperatura
-	;call Esperar250ms		; Espera de 1 segundo
-	;call Esperar250ms
-	;call Esperar250ms
-	;call Esperar250ms
+	call Esperar250ms		; Espera de 1 segundo
+	call Esperar250ms
+	call Esperar250ms
+	call Esperar250ms
 	call Verificar_Canilla
 	goto Bucle_Principal
 	
