@@ -1,12 +1,12 @@
 MPLINK 4.31, Linker
-Linker Map File - Created Wed Nov 01 15:48:46 2023
+Linker Map File - Created Thu Nov 02 18:57:26 2023
 
                                  Section Info
                   Section       Type    Address   Location Size(Bytes)
                 ---------  ---------  ---------  ---------  ---------
                    .org_0       code   0x000000    program   0x000002
                    .cinit    romdata   0x000001    program   0x000004
-                   .org_1       code   0x000004    program   0x0000ac
+                   .org_1       code   0x000004    program   0x0000aa
 .config_2007_TERMOTANQUE.O       code   0x002007    program   0x000002
 
 
@@ -15,30 +15,30 @@ Linker Map File - Created Wed Nov 01 15:48:46 2023
                                Start         End      
                            ---------   ---------      
                             0x000000    0x000002      
-                            0x000004    0x000059      
+                            0x000004    0x000058      
                             0x002007    0x002007      
-            90 out of 2183 program addresses used, program memory utilization is 4%
+            89 out of 2183 program addresses used, program memory utilization is 4%
 
 
 
                               Symbols - Sorted by Name
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
-          Bucle_Principal   0x00004b    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+          Bucle_Principal   0x00004a    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
                Esperar1ms   0x000005    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-             Esperar250ms   0x00000b    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-                   Inicio   0x000043    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-           Verificar_Agua   0x000011    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-        Verificar_Canilla   0x000036    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-    Verificar_Temperatura   0x00001e    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-            agua_caliente   0x000033    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-           cerrar_canilla   0x000041    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+             Esperar250ms   0x00000a    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+                   Inicio   0x000042    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+           Verificar_Agua   0x000010    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+        Verificar_Canilla   0x000035    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+    Verificar_Temperatura   0x00001d    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+            agua_caliente   0x000032    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+           cerrar_canilla   0x000040    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
                      loop   0x000007    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-                    loop2   0x00000d    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-                loop_agua   0x000011    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-             loop_canilla   0x000036    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-                loop_temp   0x000025    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-              tanque_full   0x00001c    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+                    loop2   0x00000c    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+                loop_agua   0x000010    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+             loop_canilla   0x000035    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+                loop_temp   0x000024    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+              tanque_full   0x00001b    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
 
 
 
@@ -47,18 +47,18 @@ Linker Map File - Created Wed Nov 01 15:48:46 2023
                 ---------  ---------  ---------  --------- ---------                
                Esperar1ms   0x000005    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
                      loop   0x000007    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-             Esperar250ms   0x00000b    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-                    loop2   0x00000d    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-           Verificar_Agua   0x000011    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-                loop_agua   0x000011    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-              tanque_full   0x00001c    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-    Verificar_Temperatura   0x00001e    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-                loop_temp   0x000025    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-            agua_caliente   0x000033    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-        Verificar_Canilla   0x000036    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-             loop_canilla   0x000036    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-           cerrar_canilla   0x000041    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-                   Inicio   0x000043    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
-          Bucle_Principal   0x00004b    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+             Esperar250ms   0x00000a    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+                    loop2   0x00000c    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+           Verificar_Agua   0x000010    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+                loop_agua   0x000010    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+              tanque_full   0x00001b    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+    Verificar_Temperatura   0x00001d    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+                loop_temp   0x000024    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+            agua_caliente   0x000032    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+        Verificar_Canilla   0x000035    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+             loop_canilla   0x000035    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+           cerrar_canilla   0x000040    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+                   Inicio   0x000042    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
+          Bucle_Principal   0x00004a    program     static C:\Users\MyPC\Desktop\Nueva carpeta (2)\Termotanque_Recuperatorio\termotanque.asm
 
 

@@ -4,16 +4,14 @@
 
 	__CONFIG 3F10
 
-; Definición bloque de control
+; Registros de forma continua a partir de la pos 0x20
     CBLOCK 0x20
-    COUNT1
-    COUNT2
+    Ta			; Temperatura actual del agua en °C
+    Ca			; Cantidad actual del agua en litros
+    Aux			; Auxiliar para calculos
+    COUNT1		; Contador 1 para espera
+    COUNT2		; Contador 2 para espera
     ENDC
-    
-; Registros:
-Ta	equ 0x20	; Pos Temperatura actual del agua en °C
-Ca	equ 0x21	; Pos Cantidad actual del agua en litros
-Aux	equ 0x22	; Pos Auxiliar
 
 ; Constantes
 #DEFINE CT d'110'			; Capacidad del Termotanque en litros
@@ -43,7 +41,7 @@ Esperar1ms:
 	movlw d'250'
 	movwf COUNT1
 loop
-	nop
+	;nop
 	decfsz COUNT1, 1
 	goto loop
 	
@@ -97,7 +95,7 @@ Verificar_Temperatura:
 	movlw Tm
 	subwf Aux, w
 	
-	btfss STATUS, Z		; Ta es mayor a Tm no hago más nada
+	btfss STATUS, Z		; Si Ta es mayor a Tm no hago más nada
 	goto agua_caliente
 
 loop_temp
@@ -126,7 +124,6 @@ agua_caliente
 	bsf PORTB, RA		; Resistencia apagada
 
 	return	; Fin Verificar_Temperatura
-
 
 ; Subrutina para verificar si la canilla debe abrirse o cerrarse
 Verificar_Canilla:
